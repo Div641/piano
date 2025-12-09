@@ -1,101 +1,203 @@
-const users = [
-    {
-        name :"Amisha Rathore",
-        pic:"https://plus.unsplash.com/premium_photo-1673038752634-46e014f0f353?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fHw%3D",
-        bio:"silent chaos in a loud world | not for everyone",
-    },
-    {
-        name: "Aarav Singh",
-        pic: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG1hbnxlbnwwfHwwfHx8MA%3D%3D",
-        bio: "building dreams one bug at a time 💻",
-    },
-    {
-        name: "Riya Mehta",
-        pic: "https://plus.unsplash.com/premium_photo-1729688320678-45bf6744754b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE1fHx8ZW58MHx8fHx8",
-        bio: "chai, books & late-night thoughts ✨",
-    },
-    {
-        name: "Kabir Sharma",
-        pic: "https://images.unsplash.com/photo-1480429370139-e0132c086e2a?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWFufGVufDB8fDB8fHww",
-        bio: "in search of good music & better conversations 🎧",
-    },
-    {
-        name: "Neha Gupta",
-        pic: "https://plus.unsplash.com/premium_photo-1683121850784-a6bdf87c6150?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDI5fHx8ZW58MHx8fHx8",
-        bio: "smile first, panic later :)",
-    },
-    {
-        name: "Yuvraj Chauhan",
-        pic: "https://plus.unsplash.com/premium_photo-1689977968861-9c91dbb16049?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bWFufGVufDB8fDB8fHww",
-        bio: "work in progress — literally",
-    },
-    {
-        name: "Saanvi Verma",
-        pic: "https://plus.unsplash.com/premium_photo-1689371958569-9591167a8db8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDM0fHx8ZW58MHx8fHx8",
-        bio: "moon child 🌙 finding magic in small things",
-    },
-    {
-        name: "Dev Patel",
-        pic: "https://images.unsplash.com/photo-1581382575275-97901c2635b7?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bWFufGVufDB8fDB8fHww",
-        bio: "sarcasm is my love language 😌",
-    }
+//NEW CARDS CREATE KAR K , DATA LOCAL STORAGE MAI SAVE KRNA HA
+//LOCAL STORAGE SE HI CARDS KO SHOW KRNA HAI
+//BUTTONS KO HANDLE KRNA HAI
+//FILTERS KO HANDLE KRNA HAI
+
+
+
+// Load from LocalStorage OR use default 30
+let contacts = JSON.parse(localStorage.getItem("contactsData")) || [
+  { name: "Fatima Uma", town: "Singapore", booking: "3 times", phone: "82104455", priority: "high" },
+  { name: "Rohan Mehta", town: "Mumbai", booking: "6 times", phone: "9820111223", priority: "high" },
+  { name: "Emily Carter", town: "London", booking: "4 times", phone: "7700900123", priority: "high" },
+  { name: "Arjun Rao", town: "Bengaluru", booking: "5 times", phone: "9845099887", priority: "high" },
+  
+  // Medium (6)
+  { name: "Isha Sharma", town: "Delhi", booking: "2 times", phone: "+91 98731 55221", priority: "medium" },
+  { name: "Noah Wilson", town: "Toronto", booking: "3 times", phone: "+1 416 555 2011", priority: "medium" },
+  { name: "Liu Wei", town: "Beijing", booking: "1 time", phone: "+86 10 5555 1100", priority: "medium" },
+  { name: "Priya Nair", town: "Kochi", booking: "2 times", phone: "+91 98951 11220", priority: "medium" },
+  { name: "Lucas Marques", town: "São Paulo", booking: "4 times", phone: "+55 11 95555 2222", priority: "medium" },
+  { name: "Olivia Brown", town: "Sydney", booking: "3 times", phone: "+61 400 123 456", priority: "medium" },
+
+  // Low (6)
+  { name: "Rahul Verma", town: "Pune", booking: "1 time", phone: "+91 97671 88990", priority: "low" },
+  { name: "Mia Rossi", town: "Rome", booking: "1 time", phone: "+39 320 777 4455", priority: "low" },
+  { name: "David Lee", town: "Seoul", booking: "1 time", phone: "+82 10-5555-9999", priority: "low" },
+  { name: "Nora Jensen", town: "Copenhagen", booking: "2 times", phone: "+45 50 55 66 77", priority: "low" },
+  { name: "Kabir Ali", town: "Jaipur", booking: "1 time", phone: "+91 98280 44771", priority: "low" },
+  { name: "Emma Stone", town: "Dublin", booking: "1 time", phone: "+353 85 123 4567", priority: "low" },
+
+  // VIP (6)
+  { name: "Aarav Malhotra", town: "Dubai", booking: "10 times", phone: "+971 50 555 9090", priority: "vip" },
+  { name: "Chloe Martin", town: "Paris", booking: "8 times", phone: "+33 6 12 34 56 78", priority: "vip" },
+  { name: "Michael Adams", town: "New York", booking: "11 times", phone: "+1 917 555 9001", priority: "vip" },
+  { name: "Hina Suzuki", town: "Osaka", booking: "9 times", phone: "+81 90-9876-5432", priority: "vip" },
+  { name: "Yusuf Khan", town: "Doha", booking: "7 times", phone: "+974 5500 1212", priority: "vip" },
+  { name: "Ana Pereira", town: "Lisbon", booking: "8 times", phone: "+351 91 234 5678", priority: "vip" },
+
+  // Follow up (6)
+  { name: "Neha Gupta", town: "Lucknow", booking: "Pending", phone: "+91 93351 66778", priority: "followup" },
+  { name: "Jason Park", town: "Chicago", booking: "Pending", phone: "+1 312 555 2030", priority: "followup" },
+  { name: "Sara Ahmed", town: "Cairo", booking: "Pending", phone: "+20 101 555 7766", priority: "followup" },
+  { name: "Markus Weber", town: "Berlin", booking: "Pending", phone: "+49 171 222 3344", priority: "followup" },
+  { name: "Lara Novak", town: "Prague", booking: "Pending", phone: "+420 777 666 555", priority: "followup" },
+  { name: "Aditya Joshi", town: "Nagpur", booking: "Pending", phone: "+91 90210 12345", priority: "followup" }
+
 ];
 
-const container = document.querySelector(".cards-container");
-const input = document.querySelector(".inp");
+const priorityText = {
+  high: "High",
+  medium: "Medium",
+  low: "Low",
+  vip: "VIP",
+  followup: "Follow up"
+};
 
-// ------------------ DISPLAY USERS -------------------
-function showUsers(arr) {
-    container.innerHTML = ""; // clear old cards
+let currentPriority = "high";
+let filteredContacts = contacts.filter(c => c.priority === currentPriority);
+let currentIndex = 0;
 
-    arr.forEach(user => {
-        const card = document.createElement("div");
-        card.className = "card";
+// DOM , could have used querySelector too, both the things work anyhow
+const nameEl = document.getElementById("name");
+const townEl = document.getElementById("town");
+const bookingEl = document.getElementById("booking");
+const phoneEl = document.getElementById("phone");
+const cardEl = document.getElementById("contactCard");
+const priorityLabelEl = document.getElementById("priorityLabel");
 
-        const img = document.createElement("img");
-        img.className = "bg-img";
-        img.src = user.pic;
+//left n right of form
+const dots = document.querySelectorAll(".priority-dot");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const addBtn = document.getElementById("addBtn");
 
-        const layer = document.createElement("div");
-        layer.className = "blurred-layers";
-        layer.style.backgroundImage = `url(${user.pic})`;
+//form starters
+const overlay = document.getElementById("formOverlay");
+const saveForm = document.getElementById("saveForm");
+const cancelForm = document.getElementById("cancelForm");
 
-        const content = document.createElement("div");
-        content.className = "content";
+//form elements
+const inputName = document.getElementById("inputName");
+const inputTown = document.getElementById("inputTown");
+const inputBooking = document.getElementById("inputBooking");
+const inputPhone = document.getElementById("inputPhone");
+const inputPriority = document.getElementById("inputPriority");
 
-        const h3 = document.createElement("h3");
-        h3.textContent = user.name;
 
-        const p = document.createElement("p");
-        p.textContent = user.bio;
-
-        content.appendChild(h3);
-        content.appendChild(p);
-        card.appendChild(img);
-        card.appendChild(layer);
-        card.appendChild(content);
-
-        // container.appendChild(card);
-
-        
-        container.appendChild(card);
-    });
+function updateDotHighlight() {
+  dots.forEach(dot => {
+    //forEach jo hai vo dots ki har value pr traverse krega , jo current priority se match hoga usko true milega or 
+    //vo active ho jayega using toggle and or sab false honge to inactive ho jayenge
+    dot.classList.toggle("active", dot.dataset.priority === currentPriority);
+  });
 }
 
-// Initial Load
-showUsers(users);
+//card ki visibility handle krne k liye function
+//uske inputs ko check kr k hi display krna hai
+function renderCard() {
+  //agar filtered contacts ki length 0 hai toh no contacts show krna hai 
+  if (!filteredContacts.length) {
+    nameEl.textContent = "No Contacts";
+    townEl.textContent = bookingEl.textContent = phoneEl.textContent = "-";
+    priorityLabelEl.textContent = "";
+    return;
+  }
+//length hai toh current index ka contact show krna hai
+  const c = filteredContacts[currentIndex];
+  nameEl.textContent = c.name;
+  townEl.textContent = c.town;
+  bookingEl.textContent = c.booking;
+  phoneEl.textContent = c.phone;
 
-//------------------- FILTER USERS -------------------
-input.addEventListener("input", function() {
-    // let newU = users.filter(user => {
-        // return user.name.startsWith(input.value);  REMOVED THIS LINE BECAUSE YE DIRECT ANS DE RAHA THA AND startsWith is CASE-SENSITIVE
-        
-        const query = input.value.toLowerCase().trim();
+  priorityLabelEl.textContent = priorityText[c.priority];
+  priorityLabelEl.className = `priority-label ${c.priority}`;
+}
 
-        const newU = users.filter(user => 
-            user.name.toLowerCase().startsWith(query) 
-    );
+function nextCard() {
+  cardEl.classList.add("slide-down");
 
-    // document.querySelector(".cards-container").innerHTML = "";
-    showUsers(newU);
+  setTimeout(() => {
+    // +1 kiya hai next index k liye but usi mai % laga diya kyuki ye agar 
+    //jaise 5 cards hai uske baad +1 krne pe out of bound chala jaayega , uski dikkat thik krne ko % length kr diya taaki back to index 0 ho jaaye  
+    currentIndex = (currentIndex + 1) % filteredContacts.length;
+    renderCard();
+    cardEl.classList.remove("slide-down");
+  }, 200);
+}
+
+function previousCard() {
+  cardEl.classList.add("slide-up");
+
+  setTimeout(() => {
+    //-1 kiya hai previous index k liye , usi mai + length kr diya taaki negative na ho jaaye
+    //% laga diya taaki circular movement ho jaaye
+    currentIndex = (currentIndex - 1 + filteredContacts.length) % filteredContacts.length;
+    renderCard();
+    cardEl.classList.remove("slide-up");
+  }, 200);
+}
+
+function changePriority(priority) {
+  currentPriority = priority;
+  //making array for all the elements with required priority using .filter
+  filteredContacts = contacts.filter(c => c.priority === currentPriority);
+  //filteredContacts naam ka array to ban gaya by default uska index hm 0th index pe fix krenge
+  currentIndex = 0;
+  updateDotHighlight();
+  renderCard();
+}
+
+// Events
+// .onclick is a way to write eventListeners eg: we can similarly use .mousemove , .dblclick etc
+nextBtn.onclick = nextCard;
+prevBtn.onclick = previousCard;
+
+dots.forEach(dot => {
+  dot.onclick = () => changePriority(dot.dataset.priority);
 });
+
+// Add contact popup
+addBtn.onclick = () => overlay.style.display = "flex";
+cancelForm.onclick = () => overlay.style.display = "none";
+
+//form mai .trim() use kr k aage peeche ki extra sapce hata di  
+saveForm.onclick = () => {
+
+    //new contact object create kar rahe form se values le k
+  const newContact = {
+    name: inputName.value.trim(),
+    town: inputTown.value.trim(),
+    booking: inputBooking.value.trim(),
+    phone: inputPhone.value.trim(),
+    priority: inputPriority.value
+  };
+
+  //trimed form values ko check kar rahe agar koi bhi empty space hoga toh vo false hota varna according to js these values will be true , hence space aane par alert popup aayega screen pr 
+  if (!newContact.name || !newContact.town || !newContact.booking || !newContact.phone) {
+    alert("Fill all fields");
+    return;
+  }
+
+//objects mai push pop all functions are allowed
+//new contact ko contacts array mai push kar diya
+//local storage mai set kr diya updated contacts array ko
+//upar vahi lacalStorage se .getItem kr k load kiya tha na , vo ab updated ho chuka hoga
+  contacts.push(newContact);
+  localStorage.setItem("contactsData", JSON.stringify(contacts));
+
+  if (newContact.priority === currentPriority) {
+    filteredContacts.push(newContact);
+    currentIndex = filteredContacts.length - 1;
+  }
+
+  renderCard();
+  overlay.style.display = "none";
+
+  inputName.value = inputTown.value = inputBooking.value = inputPhone.value = "";
+  inputPriority.value = "high";
+};
+
+// initial UI load
+updateDotHighlight();
+renderCard();

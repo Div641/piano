@@ -1,31 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Priority Card Flipper</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="flex flex-col gap-10 items-center">
 
-        <input class=" inp px-14 py-3 rounded outline-none bg-[#111] text-[#888]" type="text" placeholder="Search..">
+  <div class="wrapper">
 
-        <div class="cards-container">
-        <!-- <div class="card">
-            <img src="" alt="" class="bg-img">
-
-            <div class="blurred-layers"></div>
-
-            <div class="content">
-                <h3></h3>
-                <p></p>
-            </div> -->
-        </div>
-        
+    <!-- Controls = buttons on the left of the card-->
+    <div class="controls">
+      <button id="addBtn" class="icon-btn">+</button>
+      <button id="prevBtn" class="icon-btn">↑</button>
+      <button id="nextBtn" class="icon-btn">↓</button>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Card -->
+    <div class="card" id="contactCard">
+      <div class="profile-row">
+        <div class="profile-img"></div>
+        <div class="priority-label" id="priorityLabel"></div>
+      </div>
+
+      <h2 id="name"></h2>
+
+      <div class="info">
+        <p>Home town</p><span id="town"></span>
+      </div>
+
+      <div class="info">
+        <p>Bookings</p><span id="booking"></span>
+      </div>
+
+      <div class="info">
+        <p>Phone</p><span id="phone"></span>
+      </div>
+
+      <div class="action">
+        <button class="call">📞 Call</button>
+        <button class="msg">Message</button>
+      </div>
+
+      <!-- Priority filter dots = right of the card -->
+      <div class="priority-dots">
+        <button class="dot high priority-dot" data-priority="high"></button>
+        <button class="dot medium priority-dot" data-priority="medium"></button>
+        <button class="dot low priority-dot" data-priority="low"></button>
+        <button class="dot vip priority-dot" data-priority="vip"></button>
+        <button class="dot followup priority-dot" data-priority="followup"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD CONTACT POPUP = FORM-->
+  <div id="formOverlay" class="overlay">
+    <div class="form-box">
+      <h3>Add New Contact</h3>
+
+      <input required type="text" id="inputName" placeholder="Full Name" required>
+      <input required type="text" id="inputTown" placeholder="Home Town" required>
+      <input required type="text" id="inputBooking" placeholder="Bookings (e.g. 2 times)" required>
+      <input required type="text" id="inputPhone" placeholder="Phone Number" required>
+
+      <!-- priority selectioin using drop down form format -->
+      <select required id="inputPriority">
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+        <option value="vip">VIP</option>
+        <option value="followup">Follow up</option>
+      </select>
+
+      <div class="form-actions">
+        <button id="cancelForm">Cancel</button>
+        <button id="saveForm">Save</button>
+      </div>
+    </div>
+  </div>
+
+<script src="script.js"></script>
 </body>
 </html>
